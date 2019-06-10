@@ -1,0 +1,11 @@
+.main-nav {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  background-color: #232323;
+}
+
+.youtube-logo {
+  width:150px;
+  height: 70px;
+}

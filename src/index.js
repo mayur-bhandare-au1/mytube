@@ -1,12 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import {Provider} from 'react-redux';
+import {store} from './store/store.js';
+import {Menu} from './components/Menu.js';
+import {Trending} from './components/Trending.js';
+import {Search} from './components/Search.js';
+import VideoPlayer from './components/VideoPlayer.js';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+class App extends React.Component {
+    render(){
+        return(
+            <Provider store = {store}>
+                <Router>
+                <div className="container-fluid">
+                    <div className="row">
+                    
+                        <div className="col-md-2">
+                            <Menu/>
+                        </div>
+                       
+                        <div className="col-md-10">
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+                            <Route path = "/" exact = {true} component= {Trending} />
+                            <Route path = "/search"component= {Search} />
+                            <Route path = "/video/:videoId" component= {VideoPlayer} />
+                            
+                        </div>
+                    </div>
+                </div>
+                </Router>
+           </Provider>
+        );
+    }
+}
+
+ReactDOM.render(<App/>,document.getElementById("root"));
