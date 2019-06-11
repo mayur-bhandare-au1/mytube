@@ -47,12 +47,12 @@ class VideoPlayerComponent extends React.Component {
 
         if (this.state.showMoreClicked) {
             return (
-                <p className="font-weight-light">{this.props.currentVideoPlayer.snippet && this.props.currentVideoPlayer.snippet.description}</p>
+                <p className="font-weight-light mynew">{this.props.currentVideoPlayer.snippet && this.props.currentVideoPlayer.snippet.description}</p>
             )
         } else {
             return (
-                <p className="font-weight-light">
-                    {this.props.currentVideoPlayer.snippet && this.props.currentVideoPlayer.snippet.shortDescription}
+                <p className="font-weight-light mynew">
+                    {this.props.currentVideoPlayer.snippet && this.props.currentVideoPlayer.snippet.shortDescription}....
                     <button onClick={this.showMoreClicked} className="btn btn-sm btn-info">Show More</button>
                 </p>
             )

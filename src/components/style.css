@@ -8,3 +8,7 @@
 .space{
 	 margin-right: 10px;
 }
+.mynew{
+  white-space: pre-line;
+  font-family: 'Roboto', sans-serif;
+}
