@@ -27,7 +27,7 @@ class Login extends React.Component {
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-md-4 offset-md-4">
-                        <h2 className="text-danger">Login Using Google</h2>
+                        <h2 className="text-danger">MyTube</h2>
                         <hr />
                         <GoogleLogin
                             clientId="367019791374-tvh5d0dl3vm7oit84deputrh9uvtuh20.apps.googleusercontent.com"
