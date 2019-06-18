@@ -11,7 +11,7 @@ class Login extends React.Component {
 
     responseGoogle(response){
         if(!response || !response.accessToken){
-           
+           alert("Sorry,try again later.");
             return;
         }
         let user ={
@@ -31,7 +31,7 @@ class Login extends React.Component {
                         <hr />
                         <GoogleLogin
                             clientId="367019791374-tvh5d0dl3vm7oit84deputrh9uvtuh20.apps.googleusercontent.com"
-                            buttonText="Login"
+                            buttonText="Login With Google"
                             onSuccess={this.responseGoogle}
                             onFailure={this.responseGoogle}
                             scope="https://www.googleapis.com/auth/youtube"
