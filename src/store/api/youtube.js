@@ -1,5 +1,15 @@
 import MYTUBE_CONFIG from '../../config.js';
 
+function getUserToken(){
+    let user = localStorage.getItem("user");
+
+    if(!user) {return null; }
+
+    user = JSON.parse(user);
+
+    return user.token;
+}
+
 function fetchVideos(store, action) {
 
 
@@ -78,5 +88,63 @@ function fetchVideoComments(store,action){
         console.log("Error =>",err);
     })
 }
-export {fetchVideos,fetchOneVideo,fetchVideoComments};
+function fetchPlayLists(store, action) {
+    let url = `https://www.googleapis.com/youtube/v3/playlists?part=snippet&mine=true&maxResults=30`
+    fetch(url, {
+        "headers": {
+            Authorization: `Bearer ${getUserToken()}`
+        }
+    })
+        .then(function (response) {
+            return response.json()
+        })
+        .then(function (data) {
+            console.log(data);
+            store.dispatch({
+                type: "PLAYLIST_LOADED",
+                playList: data.items
+            })
+            // console.log(data)
+        })
+        .catch(function (err) {
+            console.log("Error ===>" + err);
+        })
+}
+function createPlayList(store, action) {
+    let url = `https://www.googleapis.com/youtube/v3/playlists?part=snippet&key=${MYTUBE_CONFIG.YOUTUBE_API_KEY}`
+
+    let formData = {
+        "snippet": {
+            "title": action.formData.name,
+            "description": action.formData.description
+        }
+    };
+
+    fetch(url, {
+        "method": "POST",
+        "headers": {
+            Authorization: `Bearer ${getUserToken()}`,
+            "Content-Type": "application/json"
+        },
+        "body": JSON.stringify(formData)
+    })
+        .then(function (response) {
+            return response.json()
+        })
+        .then(function (data) {
+            console.log(data);
+            store.dispatch({
+                type: "PLAYLIST_CREATED",
+                newPlayList: data
+            })
+            store.dispatch({
+                type:"FETCH_PLAYLISTS"
+            })
+            
+        })
+        .catch(function (err) {
+            console.log("Error ===>" + err);
+        })
+}
+export {fetchVideos,fetchOneVideo,fetchVideoComments,createPlayList,fetchPlayLists};
 

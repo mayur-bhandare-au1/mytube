@@ -1,38 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Provider} from 'react-redux';
-import {store} from './store/store.js';
-import {Menu} from './components/Menu.js';
-import {Trending} from './components/Trending.js';
-import {Search} from './components/Search.js';
-import VideoPlayer from './components/VideoPlayer.js';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import App from './App.js'
+import { BrowserRouter as Router,Route,Redirect } from 'react-router-dom';
+import Login from './components/Login.js'
 
-class App extends React.Component {
-    render(){
-        return(
-            <Provider store = {store}>
-                <Router>
-                <div className="container-fluid">
-                    <div className="row">
-                    
-                        <div className="col-md-2">
-                            <Menu/>
-                        </div>
-                       
-                        <div className="col-md-10">
+class Home extends React.Component {
 
-                            <Route path = "/" exact = {true} component= {Trending} />
-                            <Route path = "/search"component= {Search} />
-                            <Route path = "/video/:videoId" component= {VideoPlayer} />
-                            
-                        </div>
-                    </div>
-                </div>
-                </Router>
-           </Provider>
-        );
+   
+
+    doRedirect(){
+        let loggedIn = localStorage.getItem("user");
+
+        if(loggedIn){
+            return(
+                <Redirect to="/app"/>
+            )
+        }else{
+            return (
+                <Redirect to="/login"/>
+            )
+        }
+        
+    }
+
+    render() {
+
+        return (
+            <Router>
+                <Route path="/app" component={App}/>
+                <Route path="/login" component={Login}/>
+                   {this.doRedirect()} 
+            </Router>
+        )
+
     }
 }
 
-ReactDOM.render(<App/>,document.getElementById("root"));
+ReactDOM.render(<Home />, document.getElementById("root"));
